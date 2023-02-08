@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 services:
   postgresdb:
     container_name: ntnu_db
@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: user
       POSTGRES_DB: ntnu_db
     volumes:
-      - ./dbfiles:/var/lib/postgresql/data
+      - ./data/dbfiles:/var/lib/postgresql/data
     ports:
       - 5432:5432
     expose:
@@ -23,3 +23,5 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ntnu
     ports:
       - "8080:80"
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
