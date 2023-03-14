@@ -5,8 +5,10 @@ services:
     container_name: ntnu_db
     image: postgres
     restart: always
-    env_file:
-      - .env
+    environment:
+      POSTGRES_PASSWORD: ntnu
+      POSTGRES_USER: user
+      POSTGRES_DB: ntnu_db
     volumes:
       - ./data/dbfiles:/var/lib/postgresql/data
     ports:
@@ -16,24 +18,14 @@ services:
     container_name: ntnu_db_2
     image: postgres
     restart: always
-    env_file:
-      - .env
+    environment:
+      POSTGRES_PASSWORD: ntnu
+      POSTGRES_USER: user
+      POSTGRES_DB: ntnu_db2
     volumes:
       - ./data/dbfiles2:/var/lib/postgresql/data
     ports:
       - 5433:5432
-
-  pgadmin:
-    container_name: pgadmin4
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: user@ntnu.no
-      PGADMIN_DEFAULT_PASSWORD: ntnu
-    ports:
-      - "8080:80"
-    volumes:
-      - ./data/pgadmin:/var/lib/pgadmin
 
   grafana:
     image: grafana/grafana:latest
