@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  postgresdb:
+    container_name: ntnu_db
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./data/dbfiles:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  postgresdb2:
+    container_name: ntnu_db_2
+    image: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./data/dbfiles2:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@ntnu.no
+      PGADMIN_DEFAULT_PASSWORD: ntnu
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: password
